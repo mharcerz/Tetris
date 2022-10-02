@@ -9,19 +9,21 @@
 
 #include "gameLogic/Block.h"
 #include "GameConstants.h"
-#include "smfl/UserInput.h"
+#include "sfml/UserInput.h"
+#include "BoolMatrix.hpp"
 
-enum BlockMovement {move_left, move_right, move_down};
+enum BlockMovement {move_left, move_right, move_down};// TODO: use?
 
 class GameBoard {
 private:
     /*
      * GameBoard consist only of pieces that are already placed
      */
-    bool occupied[BOARD_WIDTH][BOARD_HEIGHT];
+    BoolMatrix <BOARD_WIDTH, BOARD_HEIGHT> matrix;
     sf::Color color[BOARD_WIDTH][BOARD_HEIGHT];
 
 public:
+    GameBoard();
     bool canMove(BlockOnBoard block, BlockMovement move);
     /*
      * Puts finished Block on the board, removes done lines
@@ -41,6 +43,12 @@ private:
     BlockWithColor next_block;
     // TODO: score, speed? (or number of turns), and stuff
 public:
+    GameState();
+    /*
+     * use input and move the block every few iterations
+     */
+    void update(std::vector<Keys> input);
+
     void processPlayerInput(std::vector<Keys> input);
     /*
      * returns field color based on game_board and current_block

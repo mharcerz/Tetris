@@ -9,21 +9,24 @@ int BlockFactory::get_number_of_patterns() {
 }
 
 BlockPattern BlockFactory::get_random_pattern() {
-    return BlockPattern(available_patterns[distr(rng)]);
+    int r = rand() % 4; // TODO: use rng
+    auto block = BlockPattern(available_patterns[distr(rng)]);
+    for(int i = 0; i < r; i++)block.rotate();
+    return block;
 }
 
 std::mt19937 BlockFactory::rng(std::chrono::system_clock::now().time_since_epoch().count());
 
 std::vector<std::vector<std::string>> BlockFactory::available_patterns({{
-                                                                                "1000",
-                                                                                "1000",
-                                                                                "1000",
-                                                                                "1000",
+                                                                                "0100",
+                                                                                "0100",
+                                                                                "0100",
+                                                                                "0100",
                                                                         },
                                                                         {
-                                                                                "1100",
-                                                                                "1100",
-                                                                                "0000",
+                                                                                "0110",
+                                                                                "0100",
+                                                                                "0100",
                                                                                 "0000",
                                                                         }
                                                                        });

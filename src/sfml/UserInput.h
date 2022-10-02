@@ -11,9 +11,6 @@
 
 #include "SFML/Graphics.hpp"
 
-
-
-
 enum Keys {
     space, left, right, up, down
 };

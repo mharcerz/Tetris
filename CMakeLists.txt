@@ -11,10 +11,9 @@ add_executable(tetris
         src/gameLogic/Factory/BlockFactory.h src/gameLogic/Factory/BlockFactory.cpp
         src/GameConstants.h
         src/gameLogic/GameState.h src/gameLogic/GameState.cpp
-        src/Render.h src/Render.cpp
-        src/smfl/UserInput.h src/smfl/UserInput.cpp
-        src/smfl/Visualization.h src/smfl/Visualization.cpp
-        src/gameLogic/Matrix.h src/gameLogic/Matrix.cpp
+        src/sfml/UserInput.h src/sfml/UserInput.cpp
+        src/sfml/Visualization.h src/sfml/Visualization.cpp
+        src/gameLogic/BoolMatrix.hpp
         )
 
 

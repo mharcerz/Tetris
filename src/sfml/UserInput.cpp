@@ -2,7 +2,7 @@
 // Created by mharc on 01.10.2022.
 //
 
-#include "smfl/UserInput.h"
+#include "sfml/UserInput.h"
 
 #include <utility>
 

@@ -20,6 +20,7 @@ public:
      * TODO: need to figure out how to pass big structure as GameState
      */
     void render(GameState &state);
+    void render_field(int x, int y, sf::Color color);
 };
 
 
