@@ -4,9 +4,18 @@ project(tetris)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(tetris
-        src/Field.cpp
-        src/Field.h
-        src/main.cpp)
+        src/main.cpp
+        src/gameLogic/Block.h src/gameLogic/Block.cpp
+        src/gameLogic/Factory/ColoredBlockFactory.h src/gameLogic/Factory/ColoredBlockFactory.cpp
+        src/gameLogic/Factory/ColorFactory.h src/gameLogic/Factory/ColorFactory.cpp
+        src/gameLogic/Factory/BlockFactory.h src/gameLogic/Factory/BlockFactory.cpp
+        src/GameConstants.h
+        src/gameLogic/GameState.h src/gameLogic/GameState.cpp
+        src/Render.h src/Render.cpp
+        src/smfl/UserInput.h src/smfl/UserInput.cpp
+        src/smfl/Visualization.h src/smfl/Visualization.cpp
+        src/gameLogic/Matrix.h src/gameLogic/Matrix.cpp
+        )
 
 
 include_directories(src headers c:/SFML/include)
