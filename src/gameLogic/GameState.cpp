@@ -20,9 +20,7 @@ GameState::GameState() : game_board(),
 
 sf::Color GameBoard::fieldColor(int x, int y) {
     if(matrix.get(x, y))
-    {
         return color[x][y];
-    }
     else
         return sf::Color::Black;
 }
@@ -30,13 +28,28 @@ sf::Color GameBoard::fieldColor(int x, int y) {
 sf::Color GameState::fieldColor(int x, int y) {
     if(game_board.fieldColor(x, y) != sf::Color::Black)
         return game_board.fieldColor(x, y);
-    return current_block.fieldColor(x, y);
+    std::pair <int, int> topAndDownY;
+    topAndDownY = current_block.getTopAndDownY();
+    int height = topAndDownY.second - topAndDownY.first + 1;
+    return current_block.fieldColor(x, y + topAndDownY.first + height);
 }
 
-void GameState::update(std::vector<Keys> input) {
+int GameState::update(std::vector<Keys> input, int i) {
     for(auto key: input) {
         if(key == Keys::up || key == Keys::space) {
             current_block.rotate();
         }
     }
+    if( i % 10 == 0 ) {
+        moveBlockLevelDown();
+        return 0;
+    } else
+        return i;
+}
+
+void GameState::moveBlockLevelDown() {
+
+    std::cout << "Y:" << current_block.getPositionY() << std::endl;
+    if(current_block.isItOnTheBoard(current_block.getPositionX(), current_block.getPositionY() + 1))
+        current_block.setPosition(current_block.getPositionX(), current_block.getPositionY() + 1);
 }

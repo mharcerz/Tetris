@@ -41,13 +41,14 @@ private:
     GameBoard game_board;
     BlockOnBoard current_block;
     BlockWithColor next_block;
+    void moveBlockLevelDown();
     // TODO: score, speed? (or number of turns), and stuff
 public:
     GameState();
     /*
      * use input and move the block every few iterations
      */
-    void update(std::vector<Keys> input);
+    int update(std::vector<Keys> input, int i);
 
     void processPlayerInput(std::vector<Keys> input);
     /*

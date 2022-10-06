@@ -15,6 +15,7 @@ private:
     static std::vector<std::vector<std::string>> available_patterns;
     static std::mt19937 rng;
     static std::uniform_int_distribution<> distr;
+    static std::uniform_int_distribution<> dist4;
 public:
     static BlockPattern get_random_pattern();
     static int get_number_of_patterns();

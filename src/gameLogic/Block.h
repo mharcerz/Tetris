@@ -36,7 +36,13 @@ class BlockOnBoard : public BlockWithColor {
 public:
     BlockOnBoard(BlockWithColor block);
 
-    std::pair<int, int> get_position();
+    void setPosition(int x, int y);
+
+    int getPositionX();
+
+    int getPositionY();
+
+    bool isItOnTheBoard(int x, int y);
     /*
      * returns color of the field for this Block
      * coordinates are in respect to the whole Board

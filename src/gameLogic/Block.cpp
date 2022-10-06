@@ -41,3 +41,21 @@ sf::Color BlockOnBoard::fieldColor(int x, int y) {
     }
     return sf::Color::Black;
 }
+
+void BlockOnBoard::setPosition(int x, int y) {
+    position.first = x;
+    position.second = y;
+}
+
+int BlockOnBoard::getPositionX() {
+    return position.first;
+}
+
+int BlockOnBoard::getPositionY() {
+    return position.second;
+}
+
+bool BlockOnBoard::isItOnTheBoard(int x, int y) {
+
+        return x >= 0 && x < BOARD_WIDTH && y >= 0 && y < BOARD_HEIGHT;
+}

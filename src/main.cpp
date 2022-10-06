@@ -3,6 +3,7 @@
 #include <iostream>
 #include <random>
 #include <chrono>
+#include <thread>
 
 #include "sfml/UserInput.h"
 #include "gameLogic/Factory/ColorFactory.h"
@@ -10,7 +11,10 @@
 #include "gameLogic/Block.h"
 #include "sfml/Visualization.h"
 
-
+void elo()
+{
+    std::cout << "Elo" << std::endl;
+}
 int main(int argc, char ** argv) {
     auto window_ptr =
             std::make_shared<sf::RenderWindow>(sf::VideoMode(WIDOWS_SIZE_X, WIDOWS_SIZE_Y), "SFML Tetris");
@@ -24,7 +28,7 @@ int main(int argc, char ** argv) {
 //    sf::Color color(sf::Color::Red);
 //sf::Color col = ColorFactory::get_random_color();
 // TODO: first frame before?
-
+    int i;
     while (window_ptr->isOpen()){
         auto start_time = std::chrono::system_clock::now();
 
@@ -37,7 +41,8 @@ int main(int argc, char ** argv) {
         // TODO: process input
         // ******************* update *******************
         // TODO: update
-        game.update(input);
+        i++;
+        i = game.update(input, i);
 
         // ******************* render *******************
         vis.render(game);
@@ -48,6 +53,7 @@ int main(int argc, char ** argv) {
         auto end_time = std::chrono::system_clock::now();
         auto spent = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
         sf::sleep(sf::milliseconds(MS_PER_FRAME - spent));
+
     }
 
 }
