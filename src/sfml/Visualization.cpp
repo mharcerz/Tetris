@@ -10,7 +10,6 @@ Visualization::Visualization(std::shared_ptr<sf::RenderWindow> window) : window(
 
 void Visualization::render(GameState &state) {
     window->clear();
-
     sf::RectangleShape rectangle;
     rectangle.setSize(sf::Vector2f(BOARD_SIZE_X, BOARD_SIZE_Y));
     rectangle.setFillColor(sf::Color::Black);
@@ -23,16 +22,17 @@ void Visualization::render(GameState &state) {
     {
         for( int j = 0; j < BOARD_HEIGHT; j++)
         {
-            render_field(i, j, state.fieldColor(i, j));
-
+                render_field(i, j, state.fieldColor(i, j));
         }
     }
 
     window->display();
+
 }
 
 void Visualization::render_field(int x, int y, sf::Color color) {
-    if(color == sf::Color::Black)return;
+    if(color == sf::Color::Black)
+        return;
     sf::RectangleShape rectangle;
     rectangle.setSize(sf::Vector2f(PIXELS_PER_FIELD, PIXELS_PER_FIELD));
     rectangle.setFillColor(color);

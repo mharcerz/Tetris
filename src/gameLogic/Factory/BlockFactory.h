@@ -8,7 +8,7 @@
 #include <string>
 #include <random>     /* srand, rand */
 #include <chrono>
-#include "gameLogic/Block.h"
+#include "gameLogic/BlockOnBoard.h"
 
 class BlockFactory {
 private:

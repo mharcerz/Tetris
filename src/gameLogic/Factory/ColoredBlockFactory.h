@@ -9,7 +9,7 @@
 #include <string>
 
 #include "gameLogic/Factory/ColorFactory.h"
-#include "gameLogic/Block.h"
+#include "gameLogic/BlockOnBoard.h"
 #include "BlockFactory.h"
 
 class ColoredBlockFactory {

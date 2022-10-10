@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(tetris
         src/main.cpp
-        src/gameLogic/Block.h src/gameLogic/Block.cpp
+        src/gameLogic/BlockOnBoard.h src/gameLogic/BlockOnBoard.cpp
         src/gameLogic/Factory/ColoredBlockFactory.h src/gameLogic/Factory/ColoredBlockFactory.cpp
         src/gameLogic/Factory/ColorFactory.h src/gameLogic/Factory/ColorFactory.cpp
         src/gameLogic/Factory/BlockFactory.h src/gameLogic/Factory/BlockFactory.cpp
@@ -13,7 +13,10 @@ add_executable(tetris
         src/gameLogic/GameState.h src/gameLogic/GameState.cpp
         src/sfml/UserInput.h src/sfml/UserInput.cpp
         src/sfml/Visualization.h src/sfml/Visualization.cpp
-        src/gameLogic/BoolMatrix.hpp
+        src/gameLogic/BoolMatrix.h
+        src/gameLogic/GameBoard.h src/gameLogic/GameBoard.cpp
+        src/gameLogic/BlockPattern.h src/gameLogic/BlockPattern.cpp
+        src/gameLogic/BlockWithColor.h src/gameLogic/BlockWithColor.cpp
         )
 
 

@@ -35,9 +35,9 @@ std::vector<std::vector<std::string>> BlockFactory::available_patterns({{
                                                                                 "0000",
                                                                         },
                                                                         {
+                                                                                "0000",
                                                                                 "0010",
                                                                                 "0111",
-                                                                                "0000",
                                                                                 "0000",
                                                                         },
                                                                         {

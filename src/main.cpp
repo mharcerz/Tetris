@@ -8,7 +8,7 @@
 #include "sfml/UserInput.h"
 #include "gameLogic/Factory/ColorFactory.h"
 #include "gameLogic/Factory/BlockFactory.h"
-#include "gameLogic/Block.h"
+#include "gameLogic/BlockOnBoard.h"
 #include "sfml/Visualization.h"
 
 void elo()
@@ -27,8 +27,9 @@ int main(int argc, char ** argv) {
     // A Clock starts counting as soon as it's created
 //    sf::Color color(sf::Color::Red);
 //sf::Color col = ColorFactory::get_random_color();
-// TODO: first frame before?
-    int i;
+// ToDo: first frame before?
+    int timer = 0;
+
     while (window_ptr->isOpen()){
         auto start_time = std::chrono::system_clock::now();
 
@@ -41,11 +42,12 @@ int main(int argc, char ** argv) {
         // TODO: process input
         // ******************* update *******************
         // TODO: update
-        i++;
-        i = game.update(input, i);
+        timer++;
+        timer = game.update(input, timer);
 
         // ******************* render *******************
         vis.render(game);
+
 
 
 
