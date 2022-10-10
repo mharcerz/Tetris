@@ -11,7 +11,6 @@
 #include "GameConstants.h"
 #include <cassert>
 
-
 template<int WIDTH, int HEIGHT>
 class BoolMatrix {
 private:
@@ -30,9 +29,13 @@ public:
      */
     void rotate();
 
-    std::pair<int, int> getTopAndDownY();
+    std::pair<int, int> getTopAndDownY(); //ToDo: make it private
 
-    std::pair <int, int> getLeftAndRightX();
+    std::pair <int, int> getLeftAndRightX(); //ToDo: make it private
+
+    std::pair <int, int> getTopLeftCornerOFBlock();
+
+    std::pair <int, int> getDownRightCornerOFBlock();
 
     void setPieceHere(int x, int y);
 

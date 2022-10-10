@@ -20,8 +20,9 @@ BlockOnBoard::BlockOnBoard(BlockWithColor block) : BlockWithColor(block) {
     std::cout << "TopX: " << topOfBoolMatrix.first << std::endl;
     std::cout << "TopY: " << topOfBoolMatrix.second << std::endl;
 
-    // positions on map left down corner
-    setPositions(BOARD_WIDTH / 2 - width / 2, -1);
+    // positions on map right down corner of matrix
+    setPositions(BOARD_WIDTH / 2 + width / 2 - 1, -1);
+//    setPositions(BOARD_WIDTH / 2 - width / 2, -4);
 }
 
 std::pair<int, int> BlockOnBoard::getTopOfBoolMatrix() {
@@ -42,7 +43,8 @@ void BlockOnBoard::updatePositions() {
     topOfBoolMatrix.first = leftAndRightX.first;
     topOfBoolMatrix.second = topAndDownY.first;
 
-    setPositions(oldTopLeft.first + topOfBoolMatrix.first, oldTopLeft.second + height - 1 + topOfBoolMatrix.second);
+    setPositions(oldTopLeft.first + topOfBoolMatrix.first + width - 1, oldTopLeft.second + height - 1 + topOfBoolMatrix.second);
+
     // for know is alright
 }
 
@@ -63,30 +65,17 @@ void BlockOnBoard::setPositions(int x, int y) {
     height = topAndDownY.second - topAndDownY.first + 1;
     width = leftAndRightX.second - leftAndRightX.first + 1;
 
+    setPositionDownRight(x, y);
 
-    setPositionDownLeft(x, y);
-
-    setPositionTopLeft(x, y - height + 1);
-    setPositionTopRight(x + width - 1, y - height + 1);
-    setPositionDownRight(x + width - 1, y);
+    setPositionTopLeft(x  - width + 1, y - height + 1);
 }
 
 void BlockOnBoard::setPositionTopLeft(int x, int y) {
-    std::cout << "TopY: " << y << std::endl;
     positionTopLeft.first = x;
     positionTopLeft.second = y;
 }
 
-void BlockOnBoard::setPositionDownLeft(int x, int y) {
-    std::cout << "DownY: " << y << std::endl;
-    positionDownLeft.first = x;
-    positionDownLeft.second = y;
-}
 
-void BlockOnBoard::setPositionTopRight(int x, int y) {
-    positionTopRight.first = x;
-    positionTopRight.second = y;
-}
 
 void BlockOnBoard::setPositionDownRight(int x, int y) {
     positionDownRight.first = x;
@@ -97,16 +86,8 @@ std::pair<int, int> BlockOnBoard::getPositionTopLeft() {
     return positionTopLeft;
 }
 
-std::pair<int, int> BlockOnBoard::getPositionDownLeft() {
-    return positionDownLeft;
-}
-
 std::pair<int, int> BlockOnBoard::getPositionDownRight() {
     return positionDownRight;
-}
-
-std::pair<int, int> BlockOnBoard::getPositionTopRight() {
-    return positionTopRight;
 }
 
 bool BlockOnBoard::isItOnTheBoard(int x, int y) {
@@ -124,12 +105,6 @@ bool BlockOnBoard::canIRotate() { //it's working :D
     std::pair<int, int> topLeft;
     topLeft.first = positionTopLeft.first - topLeftCorner.first;
     topLeft.second = positionTopLeft.second - topLeftCorner.second;
-    std::pair<int, int> downLeft;
-    downLeft.first = positionDownLeft.first - topLeftCorner.first;
-    downLeft.second = positionDownLeft.second- topLeftCorner.second;
-    std::pair<int, int> topRight;
-    topRight.first = positionTopRight.first - topLeftCorner.first;
-    topRight.second = positionTopRight.second - topLeftCorner.second;
     std::pair<int, int> downRight;
     downRight.first = positionDownRight.first - topLeftCorner.first;
     downRight.second = positionDownRight.second - topLeftCorner.second;
@@ -137,12 +112,6 @@ bool BlockOnBoard::canIRotate() { //it's working :D
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
             if(topLeft.second == i  && topLeft.first == j)
-                if(!isItOnTheBoard(dim - i - 1 + topLeftCorner.first, j + topLeftCorner.second))
-                    return false;
-            if(downLeft.second == i  && downLeft.first == j)
-                if(!isItOnTheBoard(dim - i - 1 + topLeftCorner.first, j + topLeftCorner.second))
-                    return false;
-            if(topRight.second == i  && topRight.first == j)
                 if(!isItOnTheBoard(dim - i - 1 + topLeftCorner.first, j + topLeftCorner.second))
                     return false;
             if(downRight.second == i  && downRight.first == j)

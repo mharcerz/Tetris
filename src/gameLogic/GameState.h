@@ -30,8 +30,8 @@ public:
      * use input and move the block every few iterations
      */
     int update(std::vector<Keys> input, int i);
-    bool canIMoveLevelDown();
-    void processPlayerInput(std::vector<Keys> input);
+    bool canIMove(Keys move);
+//    void processPlayerInput(std::vector<Keys> input); ToDo: necessary?
     /*
      * returns field color based on game_board and current_block
      */

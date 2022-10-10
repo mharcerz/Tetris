@@ -23,26 +23,21 @@
 class BlockOnBoard : public BlockWithColor {
 private:
     std::pair<int, int> positionTopLeft;
-    std::pair<int, int> positionDownLeft;
-    std::pair<int, int> positionTopRight;
     std::pair<int, int> positionDownRight;
     int width;
     int height;
+    std::pair<int, int> topLeftCorner; // of matrix 4x4 on a boards
     std::pair<int, int> topOfBoolMatrix; //distance of occupied between y value of first colored block and start of matrix<4,4>
 public:
     BlockOnBoard(BlockWithColor block);
 
     void setPositions(int x, int y); //about PositionDownLeft ToDo: about topLeftCorner
     void setPositionTopLeft(int x, int y);
-    void setPositionDownLeft(int x, int y);
-    void setPositionTopRight(int x, int y);
     void setPositionDownRight(int x, int y);
     bool canIRotate();
     void updatePositions();
     std::pair<int, int> getPositionTopLeft();
-    std::pair<int, int> getPositionDownLeft();
     std::pair<int, int> getPositionDownRight();
-    std::pair<int, int> getPositionTopRight();
     std::pair<int, int> getTopOfBoolMatrix();
     bool isItOnTheBoard(int x, int y);
 

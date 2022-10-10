@@ -5,23 +5,9 @@
 #include "GameState.h"
 #include "gameLogic/Factory/ColoredBlockFactory.h"
 
-
-
 GameState::GameState() : game_board(),
     current_block(BlockOnBoard(ColoredBlockFactory::get_colored_block())),
     next_block(ColoredBlockFactory::get_colored_block()) {}
-
-
-
-
-//sf::Color GameState::fieldColor(int x, int y) {
-//    if(game_board.fieldColor(x, y) != sf::Color::Black)
-//        return game_board.fieldColor(x, y);
-//    std::pair <int, int> topAndDownY;
-//    topAndDownY = current_block.getTopAndDownY();
-//    int height = topAndDownY.second - topAndDownY.first + 1;
-//    return current_block.fieldColor(x, y + topAndDownY.first + height);
-//}
 
 sf::Color GameState::fieldColor(int x, int y) {
     if(game_board.fieldColor(x, y) != sf::Color::Black)
@@ -29,10 +15,8 @@ sf::Color GameState::fieldColor(int x, int y) {
         return game_board.fieldColor(x, y);
     }
     return current_block.fieldColor(x, y);
-
-
-
 }
+
 int GameState::update(std::vector<Keys> input, int i) {
     for(auto key: input) {
         if(key == Keys::up || key == Keys::space) {
@@ -50,7 +34,7 @@ int GameState::update(std::vector<Keys> input, int i) {
             i = 1;
         }
     }
-    if(current_block.getPositionDownLeft().second == BOARD_HEIGHT - 1)
+    if(current_block.getPositionDownRight().second == BOARD_HEIGHT - 1)
     {
         std::pair <int, int> topLeftCorner;
         topLeftCorner.first = current_block.getPositionTopLeft().first - current_block.getTopOfBoolMatrix().first;
@@ -66,32 +50,56 @@ int GameState::update(std::vector<Keys> input, int i) {
     } else
         return i;
 
-
 }
 
+bool GameState::canIMove(Keys move) {
+    switch (move) {
+        case left:
+            break;
+        case right:
+            break;
+        case down:
+            break;
+        default:
+            break;
+
+    }
+}
 //void GameState::moveBlockLevelDown() {
-//    std::cout << "TopY: " <<  current_block.getPositonTopLeftY() << std::endl;
-//    if(current_block.isItOnTheBoard(current_block.getPositionTopLeftX(), current_block.getPositonTopLeftY() + 1))
-//        current_block.setPositionTopLeft(current_block.getPositionTopLeftX(), current_block.getPositonTopLeftY() + 1);
+//
+//    if(current_block.isItOnTheBoard(current_block.getPositionTopLeft().first, current_block.getPositionDownRight().second + 1))
+//        current_block.setPositions(current_block.getPositionTopLeft().first, current_block.getPositionDownRight().second + 1);
 //}
-bool GameState::canIMoveLevelDown() {
-    //hard
-}
+//
+//
+//void GameState::moveRight() {
+//
+//    if(current_block.isItOnTheBoard(current_block.getPositionDownRight().first + 1, current_block.getPositionDownRight().second))
+//        current_block.setPositions(current_block.getPositionDownRight().first + 1, current_block.getPositionDownRight().second);
+//}
+//
+//void GameState::moveLeft() {
+//
+//    if(current_block.isItOnTheBoard(current_block.getPositionTopLeft().first - 1, current_block.getPositionDownRight().second))
+//        current_block.setPositions(current_block.getPositionTopLeft().first - 1, current_block.getPositionDownRight().second);
+//}
+
+
 void GameState::moveBlockLevelDown() {
-//    std::cout << "DownY: " <<  current_block.getPositionDownLeft().second << std::endl;
-    if(current_block.isItOnTheBoard(current_block.getPositionTopLeft().first, current_block.getPositionDownLeft().second + 1))
-        current_block.setPositions(current_block.getPositionTopLeft().first, current_block.getPositionDownLeft().second + 1);
+
+    if(current_block.isItOnTheBoard(current_block.getPositionDownRight().first, current_block.getPositionDownRight().second + 1))
+        current_block.setPositions(current_block.getPositionDownRight().first, current_block.getPositionDownRight().second + 1);
 }
 
 
 void GameState::moveRight() {
-    std::cout << "TOP RIGHT: " << current_block.getPositionDownRight().first + 1 << std::endl;
+    std::cout << "X: " << current_block.getPositionDownRight().first + 1 << std::endl;
     if(current_block.isItOnTheBoard(current_block.getPositionDownRight().first + 1, current_block.getPositionDownRight().second))
-        current_block.setPositions(current_block.getPositionDownLeft().first + 1, current_block.getPositionDownLeft().second);
+        current_block.setPositions(current_block.getPositionDownRight().first + 1, current_block.getPositionDownRight().second);
 }
 
 void GameState::moveLeft() {
-//    std::cout << "TOP RIGHT: " << current_block.getPositionTopRight().first + 1 << std::endl;
-    if(current_block.isItOnTheBoard(current_block.getPositionDownLeft().first - 1, current_block.getPositionDownLeft().second))
-        current_block.setPositions(current_block.getPositionDownLeft().first - 1, current_block.getPositionDownLeft().second);
+
+    if(current_block.isItOnTheBoard(current_block.getPositionTopLeft().first - 1, current_block.getPositionDownRight().second))
+        current_block.setPositions(current_block.getPositionDownRight().first - 1, current_block.getPositionDownRight().second);
 }

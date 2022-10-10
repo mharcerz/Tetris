@@ -102,8 +102,7 @@ std::pair<int, int> BoolMatrix<WIDTH, HEIGHT>::getLeftAndRightX() {
 }
 
 template<int WIDTH, int HEIGHT>
-void BoolMatrix<WIDTH, HEIGHT>::setPieceHere(int x, int y)
-{
+void BoolMatrix<WIDTH, HEIGHT>::setPieceHere(int x, int y) {
     occupied[x][y] = 1;
 }
 
