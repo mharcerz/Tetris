@@ -22,7 +22,7 @@ private:
 
 public:
     GameBoard();
-    bool canMove(BlockOnBoard block, BlockMovement move); //jeden nizej tutaj zakodzic, dodać topleftcorner
+    bool canMove(BlockOnBoard block, BlockMovement move);
     /*
      * Puts finished Block on the board, removes done lines
      */
@@ -33,6 +33,5 @@ public:
      */
     sf::Color fieldColor(int x, int y);
 };
-
 
 #endif //TETRIS_GAMEBOARD_H

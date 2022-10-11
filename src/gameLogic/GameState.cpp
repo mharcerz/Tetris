@@ -65,41 +65,22 @@ bool GameState::canIMove(Keys move) {
 
     }
 }
-//void GameState::moveBlockLevelDown() {
-//
-//    if(current_block.isItOnTheBoard(current_block.getPositionTopLeft().first, current_block.getPositionDownRight().second + 1))
-//        current_block.setPositions(current_block.getPositionTopLeft().first, current_block.getPositionDownRight().second + 1);
-//}
-//
-//
-//void GameState::moveRight() {
-//
-//    if(current_block.isItOnTheBoard(current_block.getPositionDownRight().first + 1, current_block.getPositionDownRight().second))
-//        current_block.setPositions(current_block.getPositionDownRight().first + 1, current_block.getPositionDownRight().second);
-//}
-//
-//void GameState::moveLeft() {
-//
-//    if(current_block.isItOnTheBoard(current_block.getPositionTopLeft().first - 1, current_block.getPositionDownRight().second))
-//        current_block.setPositions(current_block.getPositionTopLeft().first - 1, current_block.getPositionDownRight().second);
-//}
-
 
 void GameState::moveBlockLevelDown() {
 
     if(current_block.isItOnTheBoard(current_block.getPositionDownRight().first, current_block.getPositionDownRight().second + 1))
-        current_block.setPositions(current_block.getPositionDownRight().first, current_block.getPositionDownRight().second + 1);
+        current_block.setPositions(current_block.getTopLeftCorner().first, current_block.getTopLeftCorner().second + 1);
 }
 
 
 void GameState::moveRight() {
     std::cout << "X: " << current_block.getPositionDownRight().first + 1 << std::endl;
     if(current_block.isItOnTheBoard(current_block.getPositionDownRight().first + 1, current_block.getPositionDownRight().second))
-        current_block.setPositions(current_block.getPositionDownRight().first + 1, current_block.getPositionDownRight().second);
+        current_block.setPositions(current_block.getTopLeftCorner().first + 1, current_block.getTopLeftCorner().second);
 }
 
 void GameState::moveLeft() {
 
     if(current_block.isItOnTheBoard(current_block.getPositionTopLeft().first - 1, current_block.getPositionDownRight().second))
-        current_block.setPositions(current_block.getPositionDownRight().first - 1, current_block.getPositionDownRight().second);
+        current_block.setPositions(current_block.getTopLeftCorner().first - 1, current_block.getTopLeftCorner().second);
 }

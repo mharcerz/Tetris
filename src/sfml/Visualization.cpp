@@ -7,7 +7,6 @@
 
 Visualization::Visualization(std::shared_ptr<sf::RenderWindow> window) : window(std::move(window)) {}
 
-
 void Visualization::render(GameState &state) {
     window->clear();
     sf::RectangleShape rectangle;
