@@ -6,6 +6,7 @@
 #define TETRIS_BOOLMATRIX_TPP
 
 #include "BoolMatrix.h"
+
 template<int WIDTH, int HEIGHT>
 BoolMatrix<WIDTH, HEIGHT>::BoolMatrix() {
     for (int i = 0; i < WIDTH; i++) {
@@ -29,9 +30,10 @@ BoolMatrix<WIDTH, HEIGHT>::BoolMatrix(std::vector<std::string> pattern) {
         }
     }
 }
+
 template<int WIDTH, int HEIGHT>
 bool BoolMatrix<WIDTH, HEIGHT>::get(int x, int y) {
-        return occupied[x][y];
+    return occupied[x][y];
 }
 
 template<int WIDTH, int HEIGHT>
@@ -82,13 +84,12 @@ std::pair<int, int> BoolMatrix<WIDTH, HEIGHT>::getTopAndDownY() {
 template<int WIDTH, int HEIGHT>
 std::pair<int, int> BoolMatrix<WIDTH, HEIGHT>::getLeftAndRightX() {
     int dim = WIDTH;
-    std::pair <int, int> leftAndRightX;
+    std::pair<int, int> leftAndRightX;
     leftAndRightX.first = -1;
     for (int i = 0; i < dim; i++) {
         bool temp = false;
         for (int j = 0; j < dim; j++) {
-            if (occupied[i][j] != 0)
-            {
+            if (occupied[i][j] != 0) {
                 temp = true;
                 break;
             }
@@ -106,5 +107,18 @@ void BoolMatrix<WIDTH, HEIGHT>::setPieceHere(int x, int y) {
     occupied[x][y] = 1;
 }
 
+template<int WIDTH, int HEIGHT>
+void BoolMatrix<WIDTH, HEIGHT>::updateRows(int i) {
+    for (i--; i >= 0; i--) {
+        bool cp[10];
+        for(int j = 0; j < 10; j++) {
+            cp[j] = occupied[j][i];
+            occupied[j][i + 1] = occupied[j][i];
+        }
+        for(int j = 0; j < 10; j++) {
+            occupied[j][i] = cp[j];
+        }
+    }
+}
 
 #endif //TETRIS_BOOLMATRIX_TPP

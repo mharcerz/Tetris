@@ -12,7 +12,7 @@
 #include "SFML/Graphics.hpp"
 
 enum Keys {
-    space, left, right, up, down
+    space, left, right, up, down, rotate
 };
 
 class UserInput {

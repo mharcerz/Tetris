@@ -17,20 +17,27 @@ class GameState {
 private:
     GameBoard game_board;
     BlockOnBoard current_block;
-    BlockWithColor next_block;
+    BlockOnBoard next_block;
+    int timer = 1;
+    bool gameOver;
     void moveBlockLevelDown();
     void moveLeft();
     void moveRight();
+    void setGameOver();
+    int putFinishedBlock(BlockOnBoard block);
+    int putBlock(BlockOnBoard block);
+    bool isItCorrect(BlockOnBoard block);
     // TODO: score, speed? (or number of turns), and stuff
 public:
+    bool getGameOver();
     GameState();
 
 
     /*
      * use input and move the block every few iterations
      */
-    int update(std::vector<Keys> input, int i);
-    bool canIMove(Keys move);
+    int update(std::vector<Keys> input);
+    bool move(Keys move);
 //    void processPlayerInput(std::vector<Keys> input); ToDo: necessary?
     /*
      * returns field color based on game_board and current_block

@@ -10,16 +10,17 @@
 #include "gameLogic/Factory/BlockFactory.h"
 #include "gameLogic/BlockOnBoard.h"
 #include "sfml/Visualization.h"
-
+#include "sfml/NextBlockVisualization.h"
 void elo()
 {
     std::cout << "Elo" << std::endl;
 }
 int main(int argc, char ** argv) {
     auto window_ptr =
-            std::make_shared<sf::RenderWindow>(sf::VideoMode(WIDOWS_SIZE_X, WIDOWS_SIZE_Y), "SFML Tetris");
+            std::make_shared<sf::RenderWindow>(sf::VideoMode(WIDOWS_SIZE_X, WIDOWS_SIZE_Y), "SFML");
     UserInput userInput(window_ptr);
     Visualization vis(window_ptr);
+    NextBlockVisualization next_vis(window_ptr);
     GameState game;
 
 //    BlockPattern blockPattern = BlockFactory::get_random_pattern();
@@ -28,9 +29,8 @@ int main(int argc, char ** argv) {
 //    sf::Color color(sf::Color::Red);
 //sf::Color col = ColorFactory::get_random_color();
 // ToDo: first frame before?
-    int timer = 0;
 
-    while (window_ptr->isOpen()){
+    while (window_ptr->isOpen() && !game.getGameOver()){
         auto start_time = std::chrono::system_clock::now();
 
         // ******************* process input *******************
@@ -42,8 +42,8 @@ int main(int argc, char ** argv) {
         // TODO: process input
         // ******************* update *******************
         // TODO: update
-        timer++;
-        timer = game.update(input, timer);
+
+        game.update(input);
 
         // ******************* render *******************
         vis.render(game);

@@ -14,6 +14,7 @@
 #include "BoolMatrix.tpp"
 #include "gameLogic/BlockPattern.h"
 #include "gameLogic/BlockWithColor.h"
+//#include "GameBoard.h"
 
 
 
@@ -24,13 +25,15 @@ class BlockOnBoard : public BlockWithColor {
 private:
     std::pair<int, int> topLeftCorner; // of matrix 4x4 on a boards
     std::pair<int, int> topOfBoolMatrix; //distance of occupied between y value of first colored block and start of matrix<4,4>
-    std::pair<int, int> positionTopLeft;
-    std::pair<int, int> positionDownRight;
     int width;
     int height;
 
 public:
     BlockOnBoard(BlockWithColor block);
+    BlockOnBoard getRotated();
+    BlockOnBoard getMovedDown();
+    BlockOnBoard getMovedRight();
+    BlockOnBoard getMovedLeft();
 
     /*
      * returns color of the field for this Block
@@ -41,25 +44,17 @@ public:
     void updatePositions();
     bool canIRotate();
     bool isItOnTheBoard(int x, int y);
-
-    void setPositions(int x, int y); //about topLeftCorner
-    void setHeightWidthTopOfBoolMatrix ();
-    void setTopLeftCorner(int x, int y);
+    void setTopLeftCorner(int x, int y); //about topLeftCorner
+    void setHeightWidthTopOfBoolMatrix();
     void setTopOfBoolMatrix(int x, int y);
-    void setPositionTopLeft(int x, int y);
-    void setPositionDownRight(int x, int y);
     void setHeight(std::pair<int, int> topAndDownY);
     void setWidth(std::pair<int, int> leftAndRightX);
 
     std::pair<int, int> getTopLeftCorner();
     std::pair<int, int> getTopOfBoolMatrix();
-    std::pair<int, int> getPositionTopLeft();
-    std::pair<int, int> getPositionDownRight();
+
     int getHeight();
     int getWidth();
-
-
-
 };
 
 #endif //TETRIS_BLOCKONBOARD_H

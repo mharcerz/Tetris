@@ -21,7 +21,7 @@ public:
     BoolMatrix(std::vector<std::string> pattern);
 
     bool get(int x, int y);
-
+    void updateRows(int i);
     bool inRange(int x, int y);
 
     /**

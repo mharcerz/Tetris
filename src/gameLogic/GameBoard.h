@@ -19,13 +19,16 @@ private:
      */
     BoolMatrix <BOARD_WIDTH, BOARD_HEIGHT> matrix;
     sf::Color color[BOARD_WIDTH][BOARD_HEIGHT];
-
+    void updateColors(int i);
+    bool isRowFullOfBlock(int i);
 public:
     GameBoard();
-    bool canMove(BlockOnBoard block, BlockMovement move);
+//    bool canMove(BlockOnBoard block, BlockMovement move);
+    bool get(int x, int y);
     /*
      * Puts finished Block on the board, removes done lines
      */
+    void update();
     void putFinishedBlock(BlockOnBoard block, std::pair <int, int> topLeftCorner);
     /*
      * returns the color based on game board
