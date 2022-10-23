@@ -35,7 +35,7 @@ public:
      * Black for empty cells
      */
     sf::Color field_color(int x, int y);
-    int get_score();
+    [[nodiscard]] int get_score() const;
 };
 
 #endif //TETRIS_GAMEBOARD_H

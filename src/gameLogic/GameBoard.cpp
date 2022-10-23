@@ -5,9 +5,9 @@
 #include "GameBoard.h"
 
 GameBoard::GameBoard() {
-    for (int i = 0; i < BOARD_WIDTH; i++) {
-        for (int j = 0; j < BOARD_HEIGHT; j++) {
-            color[i][j] = sf::Color::Black;
+    for (auto & blocks_column : color) {
+        for (auto & block : blocks_column) {
+            block = sf::Color::Black;
         }
     }
     score = 0;
@@ -17,7 +17,7 @@ void GameBoard::add_to_score(int value) {
     score += value;
 }
 
-int GameBoard::get_score() {
+int GameBoard::get_score() const {
     return score;
 }
 
@@ -37,11 +37,11 @@ void GameBoard::put_finished_block(BlockOnBoard block, std::pair<int, int> top_l
 
     for (int i = top_left_corner.second; i < top_left_corner.second + MAX_PIECE_HEIGHT; i++) {
         for (int j = top_left_corner.first; j < top_left_corner.first + MAX_PIECE_WIDTH; j++) {
-            sf::Color color;
+            sf::Color block_color;
 
-            color = block.field_color(j, i);
-            if (color != sf::Color::Black) {
-                this->color[j][i] = color;
+            block_color = block.field_color(j, i);
+            if (block_color != sf::Color::Black) {
+                this->color[j][i] = block_color;
                 matrix.set_piece_here(j, i);
             }
         }

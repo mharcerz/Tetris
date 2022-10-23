@@ -24,13 +24,13 @@ private:
     void set_game_over();
     bool should_i_put_finished_block(BlockOnBoard block);
     bool is_it_correct(BlockOnBoard block);
-    bool move(BlockMovement move);
+    void move(BlockMovement move);
     void setDownSpeed(int cleared_rows);
 public:
-    bool get_game_over();
+    [[nodiscard]] bool get_game_over() const;
     GameState();
     int get_score();
-    int update(std::vector<Keys> input);
+    void update(const std::vector<Keys>& input);
 
     /*
      * returns field color based on game_board and current_block

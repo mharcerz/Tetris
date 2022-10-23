@@ -19,14 +19,14 @@ private:
      * distance of occupied between y value of first colored block and start of matrix<4,4>
      */
     std::pair<int, int> top_of_bool_matrix;
-    int height;
+    int height = 0;
     void set_height_and_top_of_bool_matrix();
     void set_top_of_bool_matrix(int x, int y);
     void set_height(std::pair<int, int> top_and_down_y);
     std::pair<int, int> get_top_of_bool_matrix();
-    int get_height();
+    [[nodiscard]] int get_height() const;
 public:
-    BlockOnBoard(BlockWithColor block);
+    explicit BlockOnBoard(BlockWithColor block);
     BlockOnBoard get_rotated();
     BlockOnBoard get_moved_down();
     BlockOnBoard get_moved_right();
@@ -37,7 +37,7 @@ public:
      * coordinates are in respect to the whole Board
      */
     sf::Color field_color(int x, int y);
-    bool is_it_on_the_board(int x, int y);
+    static bool is_it_on_the_board(int x, int y);
     void set_top_left_corner(int x, int y);
     std::pair<int, int> get_top_left_corner();
 };

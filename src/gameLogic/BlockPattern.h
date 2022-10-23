@@ -10,7 +10,7 @@
 class BlockPattern : public BoolMatrix<MAX_PIECE_WIDTH, MAX_PIECE_HEIGHT> {
 protected:
 public:
-    BlockPattern(std::vector<std::string> pattern);
+    explicit BlockPattern(std::vector<std::string> pattern);
 };
 
 #endif //TETRIS_BLOCKPATTERN_H

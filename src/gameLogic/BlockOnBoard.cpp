@@ -82,6 +82,6 @@ std::pair<int, int> BlockOnBoard::get_top_of_bool_matrix() {
     return top_of_bool_matrix;
 }
 
-int BlockOnBoard::get_height() {
+int BlockOnBoard::get_height() const {
     return height;
 }

@@ -25,10 +25,10 @@ sf::Color GameState::field_color_next_block(int x, int y) {
     if (next_block.in_range(x, y) && next_block.get(x, y)) {
         return next_block.get_color();
     }
-    return sf::Color(5,5,5);
+    return {5,5,5};
 }
 
-int GameState::update(std::vector<Keys> input) {
+void GameState::update(const std::vector<Keys>& input) {
     for (auto key: input) {
         if (key == Keys::up || key == Keys::space)
             move(BlockMovement::rotate);
@@ -51,7 +51,7 @@ int GameState::update(std::vector<Keys> input) {
         timer++;
 }
 
-bool GameState::move(BlockMovement move) {
+void GameState::move(BlockMovement move) {
     switch (move) {
         case move_left: {
             BlockOnBoard moved_left(current_block.get_moved_left());
@@ -98,7 +98,7 @@ bool GameState::is_it_correct(BlockOnBoard block) {
 
             if ((game_board.get(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i) &&
                  block.get(j, i)) ||
-                (block.get(j, i) && !block.is_it_on_the_board(block.get_top_left_corner().first + j,
+                (block.get(j, i) && !BlockOnBoard::is_it_on_the_board(block.get_top_left_corner().first + j,
                                                               block.get_top_left_corner().second + i)))
                 return false;
         }
@@ -109,7 +109,7 @@ bool GameState::is_it_correct(BlockOnBoard block) {
 bool GameState::should_i_put_finished_block(BlockOnBoard block) {
     for (int i = 0; i < MAX_PIECE_HEIGHT; i++) {
         for (int j = 0; j < MAX_PIECE_WIDTH; j++) {
-            if ((!block.is_it_on_the_board(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i) ||
+            if ((!BlockOnBoard::is_it_on_the_board(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i) ||
                  game_board.get(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i))
                 && block.get(j, i)) {
                 return true;
@@ -121,7 +121,7 @@ bool GameState::should_i_put_finished_block(BlockOnBoard block) {
     return false;
 }
 
-bool GameState::get_game_over() {
+bool GameState::get_game_over() const {
     return game_over;
 }
 
@@ -130,7 +130,7 @@ void GameState::set_game_over() {
 }
 
 int GameState::get_score() {
-    game_board.get_score();
+    return game_board.get_score();
 }
 
 void GameState::setDownSpeed(int cleared_rows) {

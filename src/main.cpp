@@ -6,7 +6,7 @@
 #include "sfml/UserInput.h"
 #include "sfml/Visualization.h"
 
-int main(int argc, char ** argv) {
+int main() {
     auto window_ptr =
             std::make_shared<sf::RenderWindow>(sf::VideoMode(WIDOWS_SIZE_X, WIDOWS_SIZE_Y), "SFML Tetris");
     UserInput user_input(window_ptr);
