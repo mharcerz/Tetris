@@ -6,55 +6,40 @@
 #ifndef TETRIS_BLOCKONBOARD_H
 #define TETRIS_BLOCKONBOARD_H
 
-#include "SFML/Graphics.hpp"
-
-#include <iostream>
-
 #include "GameConstants.h"
-#include "BoolMatrix.tpp"
-#include "gameLogic/BlockPattern.h"
-#include "gameLogic/BlockWithColor.h"
-//#include "GameBoard.h"
-
-
-
-// TODO: check how to do constructor in prototype design pattern
-
+#include "BlockWithColor.h"
 
 class BlockOnBoard : public BlockWithColor {
 private:
-    std::pair<int, int> topLeftCorner; // of matrix 4x4 on a boards
-    std::pair<int, int> topOfBoolMatrix; //distance of occupied between y value of first colored block and start of matrix<4,4>
-    int width;
+    /*
+     * top left corner of matrix 4x4 on a game board
+     */
+    std::pair<int, int> top_left_corner;
+    /*
+     * distance of occupied between y value of first colored block and start of matrix<4,4>
+     */
+    std::pair<int, int> top_of_bool_matrix;
     int height;
-
+    void set_height_and_top_of_bool_matrix();
+    void set_top_of_bool_matrix(int x, int y);
+    void set_height(std::pair<int, int> top_and_down_y);
+    std::pair<int, int> get_top_of_bool_matrix();
+    int get_height();
 public:
     BlockOnBoard(BlockWithColor block);
-    BlockOnBoard getRotated();
-    BlockOnBoard getMovedDown();
-    BlockOnBoard getMovedRight();
-    BlockOnBoard getMovedLeft();
+    BlockOnBoard get_rotated();
+    BlockOnBoard get_moved_down();
+    BlockOnBoard get_moved_right();
+    BlockOnBoard get_moved_left();
 
     /*
      * returns color of the field for this Block
      * coordinates are in respect to the whole Board
      */
-    sf::Color fieldColor(int x, int y);
-
-    void updatePositions();
-    bool canIRotate();
-    bool isItOnTheBoard(int x, int y);
-    void setTopLeftCorner(int x, int y); //about topLeftCorner
-    void setHeightWidthTopOfBoolMatrix();
-    void setTopOfBoolMatrix(int x, int y);
-    void setHeight(std::pair<int, int> topAndDownY);
-    void setWidth(std::pair<int, int> leftAndRightX);
-
-    std::pair<int, int> getTopLeftCorner();
-    std::pair<int, int> getTopOfBoolMatrix();
-
-    int getHeight();
-    int getWidth();
+    sf::Color field_color(int x, int y);
+    bool is_it_on_the_board(int x, int y);
+    void set_top_left_corner(int x, int y);
+    std::pair<int, int> get_top_left_corner();
 };
 
 #endif //TETRIS_BLOCKONBOARD_H

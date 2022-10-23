@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "GameConstants.h"
-#include <cassert>
 
 template<int WIDTH, int HEIGHT>
 class BoolMatrix {
@@ -17,29 +16,15 @@ private:
     bool occupied[WIDTH][HEIGHT];
 public:
     BoolMatrix();
-
-    BoolMatrix(std::vector<std::string> pattern);
-
+    explicit BoolMatrix(std::vector<std::string> pattern);
     bool get(int x, int y);
-    void updateRows(int i);
-    bool inRange(int x, int y);
-
-    /**
-     * rotate clockwise
-     */
+    bool in_range(int x, int y);
     void rotate();
-
-    std::pair<int, int> getTopAndDownY(); //ToDo: make it private
-
-    std::pair <int, int> getLeftAndRightX(); //ToDo: make it private
-
-    std::pair <int, int> getTopLeftCornerOFBlock();
-
-    std::pair <int, int> getDownRightCornerOFBlock();
-
-    void setPieceHere(int x, int y);
-
-
+    std::pair<int, int> get_top_and_down_y();
+    std::pair <int, int> get_left_and_right_x();
+    void set_piece_here(int x, int y);
+    void remove_piece_here(int x, int y);
 };
 #include "BoolMatrix.tpp"
+
 #endif //TETRIS_BOOLMATRIX_H

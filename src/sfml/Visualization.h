@@ -6,22 +6,20 @@
 #define TETRIS_VISUALAIZATION_H
 
 #include <memory>
+#include <iostream>
 
-#include "SFML/Graphics.hpp"
 #include "gameLogic/GameState.h"
+#include "gameLogic/Factory/ColorFactory.h"
 
 class Visualization {
 private:
     std::shared_ptr<sf::RenderWindow> window;
-public:
-    Visualization(std::shared_ptr<sf::RenderWindow> window);
-
-    /*
-     * TODO: need to figure out how to pass big structure as GameState
-     */
-    void render(GameState &state);
     void render_field(int x, int y, sf::Color color);
+    void render_field_next_block(int x, int y, sf::Color color);
+    void print_texts(GameState &state);
+public:
+    explicit Visualization(std::shared_ptr<sf::RenderWindow> window);
+    void render(GameState &state);
 };
-
 
 #endif //TETRIS_VISUALAIZATION_H

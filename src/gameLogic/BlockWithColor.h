@@ -7,8 +7,6 @@
 
 #include "SFML/Graphics.hpp"
 
-#include <iostream>
-
 #include "GameConstants.h"
 #include "BoolMatrix.tpp"
 #include "gameLogic/BlockPattern.h"
@@ -16,7 +14,7 @@
 class BlockWithColor : public BlockPattern {
     sf::Color color;
 public:
-    sf::Color getColor();
+    sf::Color get_color();
     BlockWithColor(BlockPattern pattern, sf::Color color);
 };
 

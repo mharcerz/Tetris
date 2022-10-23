@@ -9,115 +9,135 @@ GameState::GameState() : game_board(),
                          current_block(BlockOnBoard(ColoredBlockFactory::get_colored_block())),
                          next_block(BlockOnBoard(ColoredBlockFactory::get_colored_block())) {
     timer = 1;
-    gameOver = false;
+    game_over = false;
+    move_down_speed = 10;
+    sum_of_cleared_rows = 0;
 }
 
-sf::Color GameState::fieldColor(int x, int y) {
-    if (game_board.fieldColor(x, y) != sf::Color::Black) {
-        return game_board.fieldColor(x, y);
+sf::Color GameState::field_color(int x, int y) {
+    if (game_board.field_color(x, y) != sf::Color::Black) {
+        return game_board.field_color(x, y);
     }
-    return current_block.fieldColor(x, y);
+    return current_block.field_color(x, y);
+}
+
+sf::Color GameState::field_color_next_block(int x, int y) {
+    if (next_block.in_range(x, y) && next_block.get(x, y)) {
+        return next_block.get_color();
+    }
+    return sf::Color(5,5,5);
 }
 
 int GameState::update(std::vector<Keys> input) {
     for (auto key: input) {
         if (key == Keys::up || key == Keys::space)
-            move(Keys::rotate);
+            move(BlockMovement::rotate);
         else if (key == Keys::left)
-            move(Keys::left);
+            move(BlockMovement::move_left);
         else if (key == Keys::right)
-            move(Keys::right);
+            move(BlockMovement::move_right);
         else if (key == Keys::down) {
-            move(Keys::down);
+            move(BlockMovement::move_down);
             timer = 1;
         }
     }
-    game_board.update();
-    if (timer % 10 == 0) {
-        move(Keys::down);
+
+    setDownSpeed(game_board.process_after_move());
+
+    if (timer % move_down_speed == 0) {
+        move(BlockMovement::move_down);
         timer = 1;
     } else
         timer++;
-
 }
 
-bool GameState::move(Keys move) {
+bool GameState::move(BlockMovement move) {
     switch (move) {
-        case left: {
-            BlockOnBoard movedLeft(current_block.getMovedLeft());
-            if (isItCorrect(movedLeft)) {
-                current_block = movedLeft;
+        case move_left: {
+            BlockOnBoard moved_left(current_block.get_moved_left());
+            if (is_it_correct(moved_left)) {
+                current_block = moved_left;
             }
             break;
         }
-        case right: {
-            BlockOnBoard movedRight(current_block.getMovedRight());
-            if (isItCorrect(movedRight)) {
-                current_block = movedRight;
+        case move_right: {
+            BlockOnBoard moved_right(current_block.get_moved_right());
+            if (is_it_correct(moved_right)) {
+                current_block = moved_right;
             }
             break;
         }
-        case down: {
-            BlockOnBoard movedDown(current_block.getMovedDown());
-            if (isItCorrect(movedDown)) {
-                current_block = movedDown;
-                std::cout << "X: " << current_block.getTopLeftCorner().first << std::endl;
-                std::cout << "Y: " << current_block.getTopLeftCorner().second << std::endl;
-            } else putFinishedBlock(movedDown);
+        case move_down: {
+            BlockOnBoard moved_down(current_block.get_moved_down());
+            if (is_it_correct(moved_down)) {
+                current_block = moved_down;
+            } else if (should_i_put_finished_block(moved_down)) {
+                game_board.put_finished_block(current_block, current_block.get_top_left_corner());
+                current_block = next_block;
+                next_block = (BlockOnBoard(ColoredBlockFactory::get_colored_block()));
+            } else { //if(current_block.get_top_left_corner().second < 0)
+                //ToDo: call game_over() function
+                std::cout << "GAME OVER!!!" << std::endl;
+                set_game_over();
+            }
             break;
         }
         case rotate: {
-            BlockOnBoard rotated(current_block.getRotated());
-            if (isItCorrect(rotated)) {
+            BlockOnBoard rotated(current_block.get_rotated());
+            if (is_it_correct(rotated)) {
                 current_block = rotated;
             }
             break;
         }
-        default:
-            break;
-
     }
 }
 
-bool GameState::isItCorrect(BlockOnBoard block) {
+bool GameState::is_it_correct(BlockOnBoard block) {
     for (int i = 0; i < MAX_PIECE_HEIGHT; i++) {
         for (int j = 0; j < MAX_PIECE_WIDTH; j++) {
 
-            if ((game_board.get(block.getTopLeftCorner().first + j, block.getTopLeftCorner().second + i) &&
+            if ((game_board.get(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i) &&
                  block.get(j, i)) ||
-                (block.get(j, i) && !block.isItOnTheBoard(block.getTopLeftCorner().first + j,
-                                                          block.getTopLeftCorner().second + i)))
+                (block.get(j, i) && !block.is_it_on_the_board(block.get_top_left_corner().first + j,
+                                                              block.get_top_left_corner().second + i)))
                 return false;
         }
     }
     return true;
 }
 
-int GameState::putFinishedBlock(BlockOnBoard block) {
+bool GameState::should_i_put_finished_block(BlockOnBoard block) {
     for (int i = 0; i < MAX_PIECE_HEIGHT; i++) {
         for (int j = 0; j < MAX_PIECE_WIDTH; j++) {
-            if ((!block.isItOnTheBoard(block.getTopLeftCorner().first + j, block.getTopLeftCorner().second + i) ||
-                 game_board.get(block.getTopLeftCorner().first + j, block.getTopLeftCorner().second + i))
+            if ((!block.is_it_on_the_board(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i) ||
+                 game_board.get(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i))
                 && block.get(j, i)) {
-                game_board.putFinishedBlock(current_block, current_block.getTopLeftCorner());
-                current_block = next_block;
-                next_block = (BlockOnBoard(ColoredBlockFactory::get_colored_block()));
-                return 0;
+                return true;
+            } else if (current_block.get_top_left_corner().second < 0) {
+                return false;
             }
-            else if(current_block.getTopLeftCorner().second < 0){
-                    std::cout << "GAME OVER!!!" << std::endl;
-                    setGameOver();
-                    return 0;
-                }
         }
     }
-    return 1;
+    return false;
 }
 
-bool GameState::getGameOver() {
-    return gameOver;
+bool GameState::get_game_over() {
+    return game_over;
 }
 
-void GameState::setGameOver() {
-    gameOver = true;
+void GameState::set_game_over() {
+    game_over = true;
+}
+
+int GameState::get_score() {
+    game_board.get_score();
+}
+
+void GameState::setDownSpeed(int cleared_rows) {
+
+    if (cleared_rows) {
+        sum_of_cleared_rows += cleared_rows;
+        if (sum_of_cleared_rows % 10 == 0)
+            move_down_speed--;
+    }
 }

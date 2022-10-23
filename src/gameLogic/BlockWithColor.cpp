@@ -6,6 +6,6 @@
 
 BlockWithColor::BlockWithColor(BlockPattern pattern, sf::Color color) : BlockPattern(pattern), color(color) {}
 
-sf::Color BlockWithColor::getColor() {
+sf::Color BlockWithColor::get_color() {
     return color;
 }

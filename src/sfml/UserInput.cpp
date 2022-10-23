@@ -4,10 +4,7 @@
 
 #include "sfml/UserInput.h"
 
-#include <utility>
-
-UserInput::UserInput(std::shared_ptr<sf::RenderWindow> window) : window(std::move(window)) {} //  this->window = window;
-//UserInput::UserInput() {} //  this->window = window;
+UserInput::UserInput(std::shared_ptr<sf::RenderWindow> window) : window(std::move(window)) {}
 
 std::vector<Keys> UserInput::get_new_input() {
     std::vector<Keys> keys;
@@ -17,7 +14,6 @@ std::vector<Keys> UserInput::get_new_input() {
     while (window->pollEvent(event)) {
         //Handle events here
 
-        // TODO: move outside
         if (event.type == sf::Event::EventType::Closed) {
             window->close();
             printf("event close");
@@ -40,10 +36,6 @@ std::vector<Keys> UserInput::get_new_input() {
                 printf("Page right\n");
                 keys.push_back(right);
             }
-
-//        if(sf::Keyboard::isKeyPressed(window.pollEvent(event)))
-//            while (window.pollEvent(event));
-
         }
     }
     return keys;

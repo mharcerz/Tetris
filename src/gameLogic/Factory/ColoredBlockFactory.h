@@ -3,13 +3,8 @@
 //
 #ifndef TETRIS_COLOREDBLOCKFACTORY_H
 #define TETRIS_COLOREDBLOCKFACTORY_H
-#include <iostream>
-#include <random>     /* srand, rand */
-#include <chrono>
-#include <string>
 
-#include "gameLogic/Factory/ColorFactory.h"
-#include "gameLogic/BlockOnBoard.h"
+#include "ColorFactory.h"
 #include "BlockFactory.h"
 
 class ColoredBlockFactory {

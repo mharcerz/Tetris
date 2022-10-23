@@ -4,7 +4,6 @@
 
 #include "ColoredBlockFactory.h"
 
-
 BlockWithColor ColoredBlockFactory::get_colored_block() {
     sf::Color col = ColorFactory::get_random_color();
     BlockPattern block = BlockFactory::get_random_pattern();

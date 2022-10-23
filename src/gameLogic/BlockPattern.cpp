@@ -4,4 +4,4 @@
 
 #include "BlockPattern.h"
 
-BlockPattern::BlockPattern(std::vector<std::string> pattern) : BoolMatrix<4, 4>(pattern) {}
+BlockPattern::BlockPattern(std::vector<std::string> pattern) : BoolMatrix<MAX_PIECE_WIDTH, MAX_PIECE_HEIGHT>(pattern) {}

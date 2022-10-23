@@ -8,10 +8,9 @@ sf::Color ColorFactory::get_random_color() {
     return available_colors[distr(rng)];
 }
 
-// TODO: use colors from here https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1Color.php
 std::vector<sf::Color> ColorFactory::available_colors({
-                                                              sf::Color(255, 255, 0),
-                                                              sf::Color(0, 255, 0),
+                                                              sf::Color(215,215,19),
+                                                              sf::Color(16, 215, 16),
                                                               sf::Color(0, 0, 255),
                                                               sf::Color(255, 128, 0),
                                                               sf::Color(255, 0, 0),

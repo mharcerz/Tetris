@@ -5,36 +5,37 @@
 #ifndef TETRIS_GAMEBOARD_H
 #define TETRIS_GAMEBOARD_H
 
-#include "sfml/UserInput.h"
-#include "gameLogic/BlockOnBoard.h"
-#include "GameConstants.h"
-#include "BoolMatrix.tpp"
+#include <iostream>
+#include <cmath>
 
-enum BlockMovement {move_left, move_right, move_down};// TODO: use?
+#include "BlockOnBoard.h"
+#include "BoolMatrix.tpp"
 
 class GameBoard {
 private:
     /*
      * GameBoard consist only of pieces that are already placed
      */
+    int score;
     BoolMatrix <BOARD_WIDTH, BOARD_HEIGHT> matrix;
     sf::Color color[BOARD_WIDTH][BOARD_HEIGHT];
-    void updateColors(int i);
-    bool isRowFullOfBlock(int i);
+    void clear_rows(int i);
+    bool is_row_full_of_blocks(int i);
+    void add_to_score(int value);
 public:
     GameBoard();
-//    bool canMove(BlockOnBoard block, BlockMovement move);
     bool get(int x, int y);
     /*
      * Puts finished Block on the board, removes done lines
      */
-    void update();
-    void putFinishedBlock(BlockOnBoard block, std::pair <int, int> topLeftCorner);
+    int process_after_move();
+    void put_finished_block(BlockOnBoard block, std::pair <int, int> top_left_corner);
     /*
      * returns the color based on game board
      * Black for empty cells
      */
-    sf::Color fieldColor(int x, int y);
+    sf::Color field_color(int x, int y);
+    int get_score();
 };
 
 #endif //TETRIS_GAMEBOARD_H
