@@ -25,10 +25,10 @@ sf::Color GameState::field_color_next_block(int x, int y) {
     if (next_block.in_range(x, y) && next_block.get(x, y)) {
         return next_block.get_color();
     }
-    return {5,5,5};
+    return {5, 5, 5};
 }
 
-void GameState::update(const std::vector<Keys>& input) {
+void GameState::update(const std::vector<Keys> &input) {
     for (auto key: input) {
         if (key == Keys::up || key == Keys::space)
             move(BlockMovement::rotate);
@@ -99,7 +99,7 @@ bool GameState::is_it_correct(BlockOnBoard block) {
             if ((game_board.get(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i) &&
                  block.get(j, i)) ||
                 (block.get(j, i) && !BlockOnBoard::is_it_on_the_board(block.get_top_left_corner().first + j,
-                                                              block.get_top_left_corner().second + i)))
+                                                                      block.get_top_left_corner().second + i)))
                 return false;
         }
     }
@@ -109,7 +109,8 @@ bool GameState::is_it_correct(BlockOnBoard block) {
 bool GameState::should_i_put_finished_block(BlockOnBoard block) {
     for (int i = 0; i < MAX_PIECE_HEIGHT; i++) {
         for (int j = 0; j < MAX_PIECE_WIDTH; j++) {
-            if ((!BlockOnBoard::is_it_on_the_board(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i) ||
+            if ((!BlockOnBoard::is_it_on_the_board(block.get_top_left_corner().first + j,
+                                                   block.get_top_left_corner().second + i) ||
                  game_board.get(block.get_top_left_corner().first + j, block.get_top_left_corner().second + i))
                 && block.get(j, i)) {
                 return true;
@@ -140,4 +141,25 @@ void GameState::setDownSpeed(int cleared_rows) {
         if (sum_of_cleared_rows % 10 == 0)
             move_down_speed--;
     }
+}
+
+bool GameState::in_range_exit(std::pair<int, int> clicked_position) {
+    return clicked_position.first >= 256 &&
+           clicked_position.first <= 356 &&
+           clicked_position.second >= 475 &&
+           clicked_position.second <= 525;
+}
+
+bool GameState::in_range_start(std::pair<int, int> clicked_position) {
+    return clicked_position.first >= 240 &&
+           clicked_position.first <= 370 &&
+           clicked_position.second >= 530 &&
+           clicked_position.second <= 580;
+}
+
+bool GameState::in_range_play_again(std::pair<int, int> clicked_position) {
+    return clicked_position.first >= 210 &&
+           clicked_position.first <= 410 &&
+           clicked_position.second >= 370 &&
+           clicked_position.second <= 430;
 }

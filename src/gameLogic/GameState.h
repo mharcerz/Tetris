@@ -31,7 +31,9 @@ public:
     GameState();
     int get_score();
     void update(const std::vector<Keys>& input);
-
+    bool in_range_exit(std::pair <int, int> clicked_position);
+    bool in_range_start(std::pair <int, int> clicked_position);
+    bool in_range_play_again(std::pair <int, int> clicked_position);
     /*
      * returns field color based on game_board and current_block
      */
