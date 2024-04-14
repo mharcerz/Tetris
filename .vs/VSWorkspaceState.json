@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.idea",
+    "\\cmake_modules",
+    "\\out",
+    "\\out\\build",
+    "\\src",
+    "\\src\\gameLogic",
+    "\\src\\gameLogic\\Factory",
+    "\\src\\pictures",
+    "\\src\\sfml"
+  ],
+  "PreviewInSolutionExplorer": false
+}
